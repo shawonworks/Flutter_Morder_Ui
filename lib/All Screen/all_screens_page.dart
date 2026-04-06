@@ -119,7 +119,7 @@ class _AmbientBackground extends StatelessWidget {
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  const Color(0xFFB14FFF).withOpacity(0.18),
+                  const Color(0xFFB14FFF).withAlpha(42),
                   Colors.transparent,
                 ],
               ),
@@ -137,7 +137,7 @@ class _AmbientBackground extends StatelessWidget {
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  const Color(0xFFC9A84C).withOpacity(0.14),
+                  const Color(0xFFC9A84C).withAlpha(42),
                   Colors.transparent,
                 ],
               ),
@@ -148,6 +148,7 @@ class _AmbientBackground extends StatelessWidget {
     );
   }
 }
+
 
 // ══════════════════════════════════════════════════════════════
 //  LAUNCHER HEADER  (StatelessWidget)
@@ -364,11 +365,11 @@ class _ScreenButtonState extends State<ScreenButton>
             color: kCard,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
-              color: item.glow.withOpacity(0.2),
+              color: item.glow.withAlpha(51),
             ),
             boxShadow: [
               BoxShadow(
-                color: item.glow.withOpacity(0.1),
+                color: item.glow.withAlpha(26),
                 blurRadius: 24,
                 offset: const Offset(0, 8),
               ),
@@ -411,7 +412,7 @@ class _IconBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: item.glow.withOpacity(0.45),
+            color: item.glow.withAlpha(120),
             blurRadius: 16,
             offset: const Offset(0, 5),
           ),
@@ -457,11 +458,11 @@ class _CardText extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 4),
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              item.glow.withOpacity(0.22),
-              item.glow.withOpacity(0.04),
+              item.glow.withAlpha(60),
+              item.glow.withAlpha(102),
             ]),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: item.glow.withOpacity(0.3)),
+            border: Border.all(color: item.glow.withAlpha(77)),
           ),
           child: Text(
             'Open Screen  →',
@@ -489,9 +490,9 @@ class _ArrowBox extends StatelessWidget {
       width: 36,
       height: 36,
       decoration: BoxDecoration(
-        color: item.glow.withOpacity(0.1),
+        color: item.glow.withAlpha(26),
         borderRadius: BorderRadius.circular(11),
-        border: Border.all(color: item.glow.withOpacity(0.2)),
+        border: Border.all(color: item.glow.withAlpha(51)),
       ),
       child: Icon(
         Icons.arrow_forward_ios_rounded,

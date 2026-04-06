@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../music_home_screen.dart';
 
 class FeaturedPlayerCard extends StatelessWidget {
-  final Track track;
+  final  Track track;
   final bool isPlaying;
   final AnimationController vinylController;
   final VoidCallback onTogglePlay;
@@ -23,7 +23,7 @@ class FeaturedPlayerCard extends StatelessWidget {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
+           colors: [
             track.colors[0].withAlpha(64),
             track.colors[1].withAlpha(26),
             kCard,

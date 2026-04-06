@@ -2,8 +2,11 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'Widget/artist_section.dart';
 import 'Widget/featured_player_card.dart';
 import 'Widget/genre_section.dart';
+import 'Widget/recently_played_section.dart';
+import 'Widget/trending_section.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -662,33 +665,7 @@ class GenreChip extends StatelessWidget {
 // ══════════════════════════════════════════════════════════════
 //  TRENDING SECTION  (StatelessWidget)
 // ══════════════════════════════════════════════════════════════
-class TrendingSection extends StatelessWidget {
-  const TrendingSection({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const MusicSectionHeader(title: '🔥 Trending Now', action: 'See all'),
-        const SizedBox(height: 14),
-        SizedBox(
-          height: 190,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            itemCount: tracks.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 14),
-            itemBuilder: (_, i) => TrendingCard(
-              track: tracks[i],
-              rank: i + 1,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class TrendingCard extends StatelessWidget {
   final Track track;
@@ -831,30 +808,7 @@ class TrendingCard extends StatelessWidget {
 // ══════════════════════════════════════════════════════════════
 //  ARTIST SECTION  (StatelessWidget)
 // ══════════════════════════════════════════════════════════════
-class ArtistSection extends StatelessWidget {
-  const ArtistSection({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const MusicSectionHeader(title: 'Top Artists', action: 'See all'),
-        const SizedBox(height: 14),
-        SizedBox(
-          height: 110,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            itemCount: artists.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 18),
-            itemBuilder: (_, i) => ArtistChip(artist: artists[i]),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class ArtistChip extends StatelessWidget {
   final Artist artist;
@@ -913,31 +867,7 @@ class ArtistChip extends StatelessWidget {
 // ══════════════════════════════════════════════════════════════
 //  RECENTLY PLAYED SECTION  (StatelessWidget)
 // ══════════════════════════════════════════════════════════════
-class RecentlyPlayedSection extends StatelessWidget {
-  const RecentlyPlayedSection({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const MusicSectionHeader(title: 'Recently Played', action: 'History'),
-        const SizedBox(height: 14),
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 22),
-          itemCount: tracks.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 10),
-          itemBuilder: (_, i) => RecentTrackRow(
-            track: tracks[i],
-            index: i + 1,
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class RecentTrackRow extends StatelessWidget {
   final Track track;
