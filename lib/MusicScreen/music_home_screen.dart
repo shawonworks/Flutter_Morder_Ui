@@ -2,6 +2,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'Widget/featured_player_card.dart';
+import 'Widget/genre_section.dart';
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -324,80 +327,7 @@ class _TopBarBtn extends StatelessWidget {
 // ══════════════════════════════════════════════════════════════
 //  FEATURED PLAYER CARD  (StatelessWidget)
 // ══════════════════════════════════════════════════════════════
-class FeaturedPlayerCard extends StatelessWidget {
-  final Track track;
-  final bool isPlaying;
-  final AnimationController vinylController;
-  final VoidCallback onTogglePlay;
 
-  const FeaturedPlayerCard({
-    super.key,
-    required this.track,
-    required this.isPlaying,
-    required this.vinylController,
-    required this.onTogglePlay,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 22),
-      padding: const EdgeInsets.all(22),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            track.colors[0].withAlpha(64),
-            track.colors[1].withAlpha(26),
-            kCard,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: track.colors[0].withAlpha(77)),
-        boxShadow: [
-          BoxShadow(
-            color: track.colors[0].withAlpha(51),
-            blurRadius: 32,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              // Vinyl record
-              VinylRecord(
-                emoji: track.emoji,
-                colors: track.colors,
-                controller: vinylController,
-              ),
-              const SizedBox(width: 18),
-              // Track info
-              Expanded(
-                child: TrackInfo(
-                  track: track,
-                  accentColor: track.colors[0],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 22),
-          // Progress bar
-          const PlayerProgressBar(),
-          const SizedBox(height: 18),
-          // Controls
-          PlayerControls(
-            isPlaying: isPlaying,
-            accentColor: track.colors[0],
-            onTogglePlay: onTogglePlay,
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 // ── Vinyl record with rotation ────────────────────────────────
 class VinylRecord extends StatelessWidget {
@@ -687,30 +617,7 @@ class _ControlBtn extends StatelessWidget {
 // ══════════════════════════════════════════════════════════════
 //  GENRE SECTION  (StatelessWidget)
 // ══════════════════════════════════════════════════════════════
-class GenreSection extends StatelessWidget {
-  const GenreSection({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const MusicSectionHeader(title: 'Browse Genres', action: 'All'),
-        const SizedBox(height: 14),
-        SizedBox(
-          height: 76,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            itemCount: genres.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (_, i) => GenreChip(genre: genres[i]),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class GenreChip extends StatelessWidget {
   final Genre genre;
@@ -971,12 +878,12 @@ class ArtistChip extends StatelessWidget {
               end: Alignment.bottomRight,
             ),
             border: Border.all(
-              color: artist.accent.withOpacity(0.5),
+              color: artist.accent.withAlpha(128),
               width: 2,
             ),
             boxShadow: [
               BoxShadow(
-                color: artist.accent.withOpacity(0.3),
+                color: artist.accent.withAlpha(77),
                 blurRadius: 12,
               ),
             ],
@@ -1151,7 +1058,7 @@ class MusicBottomNav extends StatelessWidget {
         border: const Border(top: BorderSide(color: kBorder)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withAlpha(128),
             blurRadius: 20,
             offset: const Offset(0, -4),
           ),
@@ -1204,7 +1111,7 @@ class NavItem extends StatelessWidget {
               padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? accentColor.withOpacity(0.15)
+                    ? accentColor.withAlpha(40)
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
