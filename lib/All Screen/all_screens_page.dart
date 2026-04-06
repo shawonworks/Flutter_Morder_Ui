@@ -51,9 +51,6 @@ const screens = [
   ),
 ];
 
-// ══════════════════════════════════════════════════════════════
-//  ALL SCREENS PAGE  (StatelessWidget)
-// ══════════════════════════════════════════════════════════════
 class AllScreensPage extends StatelessWidget {
   /// Pass the 3 target screen widgets from main.dart
   final List<Widget> destinations;
@@ -86,9 +83,6 @@ class AllScreensPage extends StatelessWidget {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-//  LAUNCHER HEADER  (StatelessWidget)
-// ══════════════════════════════════════════════════════════════
 class LauncherHeader extends StatelessWidget {
   const LauncherHeader({super.key});
 
@@ -294,7 +288,7 @@ class _ScreenButtonState extends State<ScreenButton>
             border: Border.all(color: kBorder),
             boxShadow: [
               BoxShadow(
-                color: item.glow.withOpacity(0.12),
+                color: item.glow.withAlpha(31),
                 blurRadius: 28,
                 offset: const Offset(0, 10),
               ),
@@ -315,7 +309,7 @@ class _ScreenButtonState extends State<ScreenButton>
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: item.glow.withOpacity(0.4),
+                      color: item.glow.withAlpha(102),
                       blurRadius: 14,
                       offset: const Offset(0, 5),
                     ),
@@ -358,12 +352,12 @@ class _ScreenButtonState extends State<ScreenButton>
                           horizontal: 11, vertical: 4),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(colors: [
-                          item.glow.withOpacity(0.22),
-                          item.glow.withOpacity(0.04),
+                          item.glow.withAlpha(60),
+                          item.glow.withAlpha(102),
                         ]),
                         borderRadius: BorderRadius.circular(10),
                         border:
-                        Border.all(color: item.glow.withOpacity(0.28)),
+                        Border.all(color: item.glow.withAlpha(65)),
                       ),
                       child: Text(
                         'Open Screen  →',
@@ -384,7 +378,7 @@ class _ScreenButtonState extends State<ScreenButton>
                 width: 36,
                 height: 36,
                 decoration: BoxDecoration(
-                  color: item.glow.withOpacity(0.1),
+                  color: item.glow.withAlpha(102),
                   borderRadius: BorderRadius.circular(11),
                 ),
                 child: Icon(

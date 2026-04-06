@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       ),
       home: AllScreensPage(
         destinations: const [
-          HomeScreen(),          // Real Estate
-          WeatherHomeScreen(),   // Weather
-          SuperShopApp(),        // Super Shop
+          HomeScreen(),
+          WeatherHomeScreen(),
+          SuperShopApp(),
         ],
       ),
     );
