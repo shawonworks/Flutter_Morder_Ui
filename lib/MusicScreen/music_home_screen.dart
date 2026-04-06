@@ -346,18 +346,18 @@ class FeaturedPlayerCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            track.colors[0].withOpacity(0.25),
-            track.colors[1].withOpacity(0.10),
+            track.colors[0].withAlpha(64),
+            track.colors[1].withAlpha(26),
             kCard,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: track.colors[0].withOpacity(0.3)),
+        border: Border.all(color: track.colors[0].withAlpha(77)),
         boxShadow: [
           BoxShadow(
-            color: track.colors[0].withOpacity(0.2),
+            color: track.colors[0].withAlpha(51),
             blurRadius: 32,
             offset: const Offset(0, 10),
           ),
@@ -427,9 +427,9 @@ class VinylRecord extends StatelessWidget {
           shape: BoxShape.circle,
           gradient: SweepGradient(
             colors: [
-              colors[0].withOpacity(0.8),
+              colors[0].withAlpha(204),
               kBg,
-              colors[1].withOpacity(0.6),
+              colors[1].withAlpha(153),
               kBg,
               colors[0].withOpacity(0.8),
             ],
@@ -811,7 +811,7 @@ class TrendingCard extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: 100,
+                height: 90,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: track.colors,
@@ -874,7 +874,7 @@ class TrendingCard extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -935,7 +935,7 @@ class ArtistSection extends StatelessWidget {
         const MusicSectionHeader(title: 'Top Artists', action: 'See all'),
         const SizedBox(height: 14),
         SizedBox(
-          height: 100,
+          height: 110,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 22),
