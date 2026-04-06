@@ -431,12 +431,12 @@ class VinylRecord extends StatelessWidget {
               kBg,
               colors[1].withAlpha(153),
               kBg,
-              colors[0].withOpacity(0.8),
+              colors[0].withAlpha(204),
             ],
           ),
           boxShadow: [
             BoxShadow(
-              color: colors[0].withOpacity(0.45),
+              color: colors[0].withAlpha(120),
               blurRadius: 20,
               spreadRadius: 2,
             ),
@@ -452,7 +452,7 @@ class VinylRecord extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: kBg,
-                border: Border.all(color: colors[0].withOpacity(0.3), width: 1),
+                border: Border.all(color: colors[0].withAlpha(77), width: 1),
               ),
             ),
             Container(
@@ -492,9 +492,9 @@ class TrackInfo extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
-            color: accentColor.withOpacity(0.15),
+            color: accentColor.withAlpha(38),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: accentColor.withOpacity(0.3)),
+            border: Border.all(color: accentColor.withAlpha(77)),
           ),
           child: Text(
             'NOW PLAYING',
@@ -576,7 +576,7 @@ class PlayerProgressBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(2),
                   boxShadow: [
                     BoxShadow(
-                      color: kNeon.withOpacity(0.6),
+                      color: kNeon.withAlpha(153),
                       blurRadius: 6,
                     ),
                   ],
@@ -651,7 +651,7 @@ class PlayerControls extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: kNeon.withOpacity(0.5),
+                  color: kNeon.withAlpha(128),
                   blurRadius: 20,
                   spreadRadius: 2,
                 ),
@@ -723,14 +723,14 @@ class GenreChip extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            genre.gradient[0].withOpacity(0.2),
-            genre.gradient[1].withOpacity(0.08),
+            genre.gradient[0].withAlpha(51),
+            genre.gradient[1].withAlpha(204),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: genre.gradient[0].withOpacity(0.3)),
+        border: Border.all(color: genre.gradient[0].withAlpha(77)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -795,14 +795,14 @@ class TrendingCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            track.colors[0].withOpacity(0.22),
+            track.colors[0].withAlpha(55),
             kCard,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: track.colors[0].withOpacity(0.25)),
+        border: Border.all(color: track.colors[0].withAlpha(64)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -837,7 +837,7 @@ class TrendingCard extends StatelessWidget {
                   width: 26,
                   height: 26,
                   decoration: BoxDecoration(
-                    color: kBg.withOpacity(0.7),
+                    color: kBg.withAlpha(149),
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -861,7 +861,7 @@ class TrendingCard extends StatelessWidget {
                     width: 26,
                     height: 26,
                     decoration: BoxDecoration(
-                      color: kBg.withOpacity(0.7),
+                      color: kBg.withAlpha(180),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -965,7 +965,7 @@ class ArtistChip extends StatelessWidget {
             gradient: LinearGradient(
               colors: [
                 artist.accent,
-                artist.accent.withOpacity(0.3),
+                artist.accent.withAlpha(77),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
