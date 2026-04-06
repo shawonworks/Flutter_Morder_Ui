@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'Widget/featured_section.dart';
+import 'Widget/home_header.dart';
+import 'Widget/property_search_bar.dart';
+
 void main() => runApp(const RealEstateApp());
 
 // ── Colors ────────────────────────────────────────────────────
@@ -159,183 +163,6 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  HOME HEADER  (StatelessWidget)
-// ══════════════════════════════════════════════════════════════
-class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BrandLabel(),
-              SizedBox(height: 4),
-              Text(
-                'Find Your\nDream Home',
-                style: TextStyle(
-                  color: kText,
-                  fontSize: 26,
-                  fontWeight: FontWeight.w700,
-                  height: 1.2,
-                  letterSpacing: -0.5,
-                ),
-              ),
-            ],
-          ),
-          const Row(
-            children: [
-              NotificationButton(),
-              SizedBox(width: 10),
-              AvatarButton(),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ── Brand label ───────────────────────────────────────────────
-class BrandLabel extends StatelessWidget {
-  const BrandLabel({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 28,
-          height: 2,
-          color: kGold,
-          margin: const EdgeInsets.only(right: 8),
-        ),
-        const Text(
-          'ESTATE LUXE',
-          style: TextStyle(
-            color: kGold,
-            fontSize: 11,
-            letterSpacing: 4,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// ── Notification button ───────────────────────────────────────
-class NotificationButton extends StatelessWidget {
-  const NotificationButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            color: kCard,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: kDivider),
-          ),
-          child: const Icon(Icons.notifications_none_rounded, color: kText, size: 20),
-        ),
-        Positioned(
-          right: 10,
-          top: 10,
-          child: Container(
-            width: 8,
-            height: 8,
-            decoration: const BoxDecoration(color: kGold, shape: BoxShape.circle),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// ── Avatar button ─────────────────────────────────────────────
-class AvatarButton extends StatelessWidget {
-  const AvatarButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 44,
-      height: 44,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: kGold, width: 1.5),
-        image: const DecorationImage(
-          image: NetworkImage('https://i.pravatar.cc/150?img=12'),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-}
-
-// ══════════════════════════════════════════════════════════════
-//  SEARCH BAR  (StatelessWidget)
-// ══════════════════════════════════════════════════════════════
-class PropertySearchBar extends StatelessWidget {
-  const PropertySearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: 52,
-              decoration: BoxDecoration(
-                color: kCard,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: kDivider),
-              ),
-              child: const Row(
-                children: [
-                  SizedBox(width: 16),
-                  Icon(Icons.search_rounded, color: kGold, size: 20),
-                  SizedBox(width: 10),
-                  Text(
-                    'Search properties...',
-                    style: TextStyle(color: kTextMuted, fontSize: 14),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Container(
-            width: 52,
-            height: 52,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [kGold, kGoldLight],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: const Icon(Icons.tune_rounded, color: Color(0xFF1A1400), size: 22),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ══════════════════════════════════════════════════════════════
 //  CATEGORY BAR  (StatelessWidget — state lifted to HomeScreen)
 // ══════════════════════════════════════════════════════════════
 class CategoryBar extends StatelessWidget {
@@ -360,7 +187,7 @@ class CategoryBar extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 24),
           itemCount: _categories.length,
-          separatorBuilder: (_, __) => const SizedBox(width: 10),
+          separatorBuilder: (_, _) => const SizedBox(width: 10),
           itemBuilder: (_, i) => CategoryChip(
             label: _categories[i],
             isSelected: selected == i,
@@ -414,31 +241,6 @@ class CategoryChip extends StatelessWidget {
 // ══════════════════════════════════════════════════════════════
 //  FEATURED SECTION  (StatelessWidget)
 // ══════════════════════════════════════════════════════════════
-class FeaturedSection extends StatelessWidget {
-  final List<Property> properties;
-
-  const FeaturedSection({super.key, required this.properties});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SectionHeader(title: 'Featured', action: 'See all'),
-        SizedBox(
-          height: 290,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            itemCount: properties.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 16),
-            itemBuilder: (_, i) => FeaturedCard(property: properties[i]),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 // ── Featured card ─────────────────────────────────────────────
 class FeaturedCard extends StatelessWidget {
@@ -487,8 +289,8 @@ class PropertyNetworkImage extends StatelessWidget {
       url,
       fit: BoxFit.cover,
       loadingBuilder: (_, child, progress) =>
-      progress == null ? child : Container(color: kCard),
-      errorBuilder: (_, __, ___) => Container(
+          progress == null ? child : Container(color: kCard),
+      errorBuilder: (_, _, _) => Container(
         color: kCard,
         child: const Icon(Icons.home_outlined, color: kDivider, size: 40),
       ),
@@ -604,7 +406,10 @@ class FeaturedCardInfo extends StatelessWidget {
               children: [
                 MiniStat(icon: Icons.bed_outlined, value: '${property.beds}'),
                 const SizedBox(width: 8),
-                MiniStat(icon: Icons.bathtub_outlined, value: '${property.baths}'),
+                MiniStat(
+                  icon: Icons.bathtub_outlined,
+                  value: '${property.baths}',
+                ),
               ],
             ),
           ],
@@ -702,7 +507,7 @@ class NearbySection extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 24),
           itemCount: properties.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 14),
+          separatorBuilder: (_, _) => const SizedBox(height: 14),
           itemBuilder: (_, i) => NearbyCard(property: properties[i]),
         ),
       ],
@@ -741,7 +546,9 @@ class NearbyCard extends StatelessWidget {
                     tag: property.tag,
                     fontSize: 8,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 7, vertical: 3),
+                      horizontal: 7,
+                      vertical: 3,
+                    ),
                   ),
                 ),
               ],
@@ -898,11 +705,7 @@ class BottomNav extends StatelessWidget {
   final int selected;
   final ValueChanged<int> onChanged;
 
-  const BottomNav({
-    super.key,
-    required this.selected,
-    required this.onChanged,
-  });
+  const BottomNav({super.key, required this.selected, required this.onChanged});
 
   static const _icons = [
     Icons.home_rounded,
@@ -930,7 +733,7 @@ class BottomNav extends StatelessWidget {
       child: Row(
         children: List.generate(
           _icons.length,
-              (i) => NavItem(
+          (i) => NavItem(
             icon: _icons[i],
             label: _labels[i],
             isSelected: selected == i,
