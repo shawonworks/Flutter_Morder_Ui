@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 // ══════════════════════════════════════════════════════════════
 //  COLORS
 // ══════════════════════════════════════════════════════════════
-const kBg      = Color(0xFF0F0F17);
-const kCard    = Color(0xFF1A1A28);
-const kBorder  = Color(0xFF2A2A3E);
+const kBg      = Color(0xFF08080F);
+const kCard    = Color(0xFF131320);
+const kBorder  = Color(0xFF252540);
 const kWhite   = Color(0xFFFFFFFF);
 const kWhite60 = Color(0x99FFFFFF);
 const kWhite30 = Color(0x4DFFFFFF);
+const kWhite10 = Color(0x1AFFFFFF);
 
 // ══════════════════════════════════════════════════════════════
-//  SCREEN ITEM DATA MODEL
+//  DATA MODEL
 // ══════════════════════════════════════════════════════════════
 class ScreenItem {
   final String title, subtitle, emoji;
@@ -27,12 +28,13 @@ class ScreenItem {
   });
 }
 
+// ── 4 screens data ────────────────────────────────────────────
 const screens = [
   ScreenItem(
     title: 'Real Estate',
     subtitle: 'Luxury property finder',
     emoji: '🏙️',
-    gradient: [Color(0xFFC9A84C), Color(0xFF8B5E1A)],
+    gradient: [Color(0xFFC9A84C), Color(0xFF6B3F0A)],
     glow: Color(0xFFC9A84C),
   ),
   ScreenItem(
@@ -46,13 +48,22 @@ const screens = [
     title: 'Super Shop',
     subtitle: 'Fresh grocery market',
     emoji: '🛒',
-    gradient: [Color(0xFF1DB954), Color(0xFF0A5C2A)],
+    gradient: [Color(0xFF1DB954), Color(0xFF0A4A22)],
     glow: Color(0xFF1DB954),
+  ),
+  ScreenItem(
+    title: 'Music Stream',
+    subtitle: 'Neon sound experience',
+    emoji: '🎵',
+    gradient: [Color(0xFFB14FFF), Color(0xFF3A0080)],
+    glow: Color(0xFFB14FFF),
   ),
 ];
 
+// ══════════════════════════════════════════════════════════════
+//  ALL SCREENS PAGE  (StatelessWidget)
+// ══════════════════════════════════════════════════════════════
 class AllScreensPage extends StatelessWidget {
-  /// Pass the 3 target screen widgets from main.dart
   final List<Widget> destinations;
 
   const AllScreensPage({super.key, required this.destinations});
@@ -61,28 +72,86 @@ class AllScreensPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBg,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 40),
-              const LauncherHeader(),
-              const SizedBox(height: 48),
-              Expanded(
-                child: ScreenButtonList(destinations: destinations),
+      body: Stack(
+        children: [
+          // Background ambient glows
+          const _AmbientBackground(),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 36),
+                  const LauncherHeader(),
+                  const SizedBox(height: 36),
+                  Expanded(
+                    child: ScreenButtonList(destinations: destinations),
+                  ),
+                  LauncherFooter(count: destinations.length),
+                  const SizedBox(height: 28),
+                ],
               ),
-              const LauncherFooter(),
-              const SizedBox(height: 24),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
 
+// ── Ambient background glow blobs ─────────────────────────────
+class _AmbientBackground extends StatelessWidget {
+  const _AmbientBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // Top-left purple glow
+        Positioned(
+          top: -80,
+          left: -60,
+          child: Container(
+            width: 260,
+            height: 260,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  const Color(0xFFB14FFF).withOpacity(0.18),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+        ),
+        // Bottom-right gold glow
+        Positioned(
+          bottom: -60,
+          right: -60,
+          child: Container(
+            width: 220,
+            height: 220,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  const Color(0xFFC9A84C).withOpacity(0.14),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+//  LAUNCHER HEADER  (StatelessWidget)
+// ══════════════════════════════════════════════════════════════
 class LauncherHeader extends StatelessWidget {
   const LauncherHeader({super.key});
 
@@ -93,9 +162,9 @@ class LauncherHeader extends StatelessWidget {
       children: [
         // Active pill
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
           decoration: BoxDecoration(
-            color: kCard,
+            color: kWhite10,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: kBorder),
           ),
@@ -103,35 +172,39 @@ class LauncherHeader extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               PulseDot(),
-              SizedBox(width: 7),
+              SizedBox(width: 8),
               Text(
                 'DEV SHOWCASE',
                 style: TextStyle(
                   color: kWhite60,
                   fontSize: 10,
                   fontWeight: FontWeight.w700,
-                  letterSpacing: 2,
+                  letterSpacing: 2.5,
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 18),
+        const SizedBox(height: 20),
         // Big title
         const Text(
           'All\nScreens',
           style: TextStyle(
             color: kWhite,
-            fontSize: 52,
-            fontWeight: FontWeight.w800,
-            height: 1.0,
-            letterSpacing: -2.5,
+            fontSize: 54,
+            fontWeight: FontWeight.w900,
+            height: 0.95,
+            letterSpacing: -3,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         const Text(
           'Tap any card to explore the screen',
-          style: TextStyle(color: kWhite60, fontSize: 14),
+          style: TextStyle(
+            color: kWhite60,
+            fontSize: 13.5,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ],
     );
@@ -160,7 +233,7 @@ class _PulseDotState extends State<PulseDot>
       vsync: this,
       duration: const Duration(milliseconds: 900),
     )..repeat(reverse: true);
-    _anim = Tween<double>(begin: 0.35, end: 1.0)
+    _anim = Tween<double>(begin: 0.3, end: 1.0)
         .animate(CurvedAnimation(parent: _c, curve: Curves.easeInOut));
   }
 
@@ -178,7 +251,7 @@ class _PulseDotState extends State<PulseDot>
         width: 7,
         height: 7,
         decoration: const BoxDecoration(
-          color: Color(0xFF1DB954),
+          color: Color(0xFFB14FFF),
           shape: BoxShape.circle,
         ),
       ),
@@ -197,12 +270,13 @@ class ScreenButtonList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       itemCount: screens.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 16),
+      separatorBuilder: (_, __) => const SizedBox(height: 14),
       itemBuilder: (_, i) => ScreenButton(
         item: screens[i],
         destination: destinations[i],
+        index: i,
       ),
     );
   }
@@ -214,11 +288,13 @@ class ScreenButtonList extends StatelessWidget {
 class ScreenButton extends StatefulWidget {
   final ScreenItem item;
   final Widget destination;
+  final int index;
 
   const ScreenButton({
     super.key,
     required this.item,
     required this.destination,
+    required this.index,
   });
 
   @override
@@ -255,12 +331,14 @@ class _ScreenButtonState extends State<ScreenButton>
     Navigator.push(
       context,
       PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 400),
+        transitionDuration: const Duration(milliseconds: 420),
         pageBuilder: (_, animation, __) => SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(1.0, 0.0),
             end: Offset.zero,
-          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
+          ).animate(
+            CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
+          ),
           child: widget.destination,
         ),
       ),
@@ -281,115 +359,144 @@ class _ScreenButtonState extends State<ScreenButton>
         builder: (_, child) =>
             Transform.scale(scale: _scale.value, child: child),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
             color: kCard,
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: kBorder),
+            border: Border.all(
+              color: item.glow.withOpacity(0.2),
+            ),
             boxShadow: [
               BoxShadow(
-                color: item.glow.withAlpha(31),
-                blurRadius: 28,
-                offset: const Offset(0, 10),
+                color: item.glow.withOpacity(0.1),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
               ),
             ],
           ),
           child: Row(
             children: [
               // Gradient icon box
-              Container(
-                width: 66,
-                height: 66,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: item.gradient,
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: item.glow.withAlpha(102),
-                      blurRadius: 14,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    item.emoji,
-                    style: const TextStyle(fontSize: 30),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 18),
-              // Text
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.title,
-                      style: const TextStyle(
-                        color: kWhite,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -0.4,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      item.subtitle,
-                      style: const TextStyle(
-                        color: kWhite60,
-                        fontSize: 12.5,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    // Glow pill
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 11, vertical: 4),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [
-                          item.glow.withAlpha(60),
-                          item.glow.withAlpha(102),
-                        ]),
-                        borderRadius: BorderRadius.circular(10),
-                        border:
-                        Border.all(color: item.glow.withAlpha(65)),
-                      ),
-                      child: Text(
-                        'Open Screen  →',
-                        style: TextStyle(
-                          color: item.glow,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0.2,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              // Arrow icon
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: item.glow.withAlpha(102),
-                  borderRadius: BorderRadius.circular(11),
-                ),
-                child: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: item.glow,
-                  size: 14,
-                ),
-              ),
+              _IconBox(item: item),
+              const SizedBox(width: 16),
+              // Text info
+              Expanded(child: _CardText(item: item)),
+              const SizedBox(width: 10),
+              // Arrow
+              _ArrowBox(item: item),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ── Icon box ──────────────────────────────────────────────────
+class _IconBox extends StatelessWidget {
+  final ScreenItem item;
+  const _IconBox({required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 68,
+      height: 68,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: item.gradient,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: item.glow.withOpacity(0.45),
+            blurRadius: 16,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(item.emoji, style: const TextStyle(fontSize: 30)),
+      ),
+    );
+  }
+}
+
+// ── Card text (title + subtitle + pill) ───────────────────────
+class _CardText extends StatelessWidget {
+  final ScreenItem item;
+  const _CardText({required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          item.title,
+          style: const TextStyle(
+            color: kWhite,
+            fontSize: 17,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.4,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          item.subtitle,
+          style: const TextStyle(
+            color: kWhite60,
+            fontSize: 12,
+          ),
+        ),
+        const SizedBox(height: 12),
+        // Glow pill
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 4),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              item.glow.withOpacity(0.22),
+              item.glow.withOpacity(0.04),
+            ]),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: item.glow.withOpacity(0.3)),
+          ),
+          child: Text(
+            'Open Screen  →',
+            style: TextStyle(
+              color: item.glow,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.2,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Arrow box ─────────────────────────────────────────────────
+class _ArrowBox extends StatelessWidget {
+  final ScreenItem item;
+  const _ArrowBox({required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 36,
+      height: 36,
+      decoration: BoxDecoration(
+        color: item.glow.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(11),
+        border: Border.all(color: item.glow.withOpacity(0.2)),
+      ),
+      child: Icon(
+        Icons.arrow_forward_ios_rounded,
+        color: item.glow,
+        size: 13,
       ),
     );
   }
@@ -399,7 +506,8 @@ class _ScreenButtonState extends State<ScreenButton>
 //  LAUNCHER FOOTER  (StatelessWidget)
 // ══════════════════════════════════════════════════════════════
 class LauncherFooter extends StatelessWidget {
-  const LauncherFooter({super.key});
+  final int count;
+  const LauncherFooter({super.key, required this.count});
 
   @override
   Widget build(BuildContext context) {
@@ -408,9 +516,9 @@ class LauncherFooter extends StatelessWidget {
       children: [
         Container(width: 32, height: 1, color: kBorder),
         const SizedBox(width: 12),
-        const Text(
-          '3 screens available',
-          style: TextStyle(color: kWhite30, fontSize: 11),
+        Text(
+          '$count screens available',
+          style: const TextStyle(color: kWhite30, fontSize: 11),
         ),
         const SizedBox(width: 12),
         Container(width: 32, height: 1, color: kBorder),
